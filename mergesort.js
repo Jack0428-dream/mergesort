@@ -1,18 +1,39 @@
-function fibs(num) {
-    let arr = [];
+// pseudocode
+//     sort the left half list
+//     sort the right half list
+//     merge two list
 
-    for(let i=0; i < num; i++) {
-        if(i === 0) {
-            arr.push(0);
-        } else if(i === 1) {
-            arr.push(1)
-        } else if(i > 1) {
-            let value = arr[i-2] + arr[i-1];
-            arr.push(value)
+function mergesort(array) {
+    // base line
+    // return mergedArray;
+
+    //recursive line
+    //split 
+    let n = array.length;
+    if(n <= 1) {
+        return array;
+    }
+    
+    let left = array.slice(0, Math.floor(n / 2));
+    let right = array.slice(Math.floor(n / 2));
+
+    let sortedLeft = mergesort(left);
+    let sortedRight = mergesort(right);
+    // merge
+    let merged = [];
+    while (sortedLeft.length && sortedRight.length) {
+        if(sortedLeft[0] < sortedRight[0]) {
+            merged.push(sortedLeft.shift());
+        } else {
+            merged.push(sortedRight.shift());
         }
     }
 
-    console.log(arr);
+    return merged.concat(sortedLeft, sortedRight);
 }
 
-fibs(8);
+console.log(mergesort([]));
+console.log(mergesort([73]));
+console.log(mergesort([1,2,3,4,5]));
+console.log(mergesort([3, 2, 1, 13, 8, 5, 0, 1]));
+console.log(mergesort([105, 79, 100, 110]));
